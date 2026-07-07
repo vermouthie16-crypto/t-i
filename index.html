@@ -153,35 +153,31 @@
   .btn-ghost{ background: rgba(255,255,255,0.6); color: var(--pink-deep); border: 2px solid var(--pink-mid); }
   .btn-ghost:hover{ transform: translateY(-4px) rotate(1deg); background: #fff; }
 
-  /* avatar - no dashed frame, glowing rotating ring + orbiting sparkles */
-  .avatar-stage{ flex: 0 0 260px; width: 260px; height: 260px; position: relative; }
-  .avatar-glow-ring{
-    position: absolute; inset: -10px; border-radius: 50%;
-    background: conic-gradient(from 0deg, var(--pink-mid), var(--peach), var(--lilac), var(--pink-deep), var(--pink-mid));
-    filter: blur(3px); animation: spin 7s linear infinite;
+  /* avatar - không viền khung, chỉ có bóng mờ phía sau ảnh, nổi nhẹ */
+  .avatar-frame{
+    flex: 0 0 260px; width: 260px; height: 260px; position: relative;
+    animation: frame-float 6s ease-in-out infinite;
   }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
-  .avatar-core{
-    position: absolute; inset: 10px; border-radius: 50%;
-    background: linear-gradient(160deg, #ffe6ee, #ffd2e0);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Baloo 2', cursive; font-weight: 800; color: var(--pink-deep);
-    font-size: 4.2rem; box-shadow: 0 0 0 7px #fff, var(--shadow-soft);
-    animation: breathe 4s ease-in-out infinite;
+  @keyframes frame-float{ 0%,100%{ transform: translateY(0) rotate(2deg); } 50%{ transform: translateY(-14px) rotate(-2deg); } }
+  .avatar-frame::before{
+    content: ""; position: absolute; inset: 18px; border-radius: var(--radius-lg);
+    background: radial-gradient(circle, var(--pink-mid), var(--peach) 65%, transparent 78%);
+    filter: blur(32px); opacity: 0.65; z-index: -1;
   }
-  @keyframes breathe{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.035); } }
-  .orbit{ position: absolute; inset: -34px; animation: spin 11s linear infinite; }
-  .orbit.reverse{ animation-direction: reverse; animation-duration: 15s; inset: -52px; }
-  .orbit span{
-    position: absolute; top: 0; left: 50%; transform: translate(-50%,-50%);
-    font-size: 1.4rem; filter: drop-shadow(0 4px 6px rgba(239,95,143,0.35));
+  .avatar-inner{
+    width: 100%; height: 100%; border-radius: var(--radius-lg);
+    position: relative; overflow: hidden; box-shadow: var(--shadow-soft);
   }
-  .avatar-badge{
-    position: absolute; bottom: -6px; right: -6px; background: #fff; border-radius: 50%;
-    width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;
-    font-size: 1.55rem; box-shadow: var(--shadow-soft); animation: badgeWiggle 3.2s ease-in-out infinite;
+  .avatar-inner img{
+    width: 100%; height: 100%; object-fit: cover; object-position: center;
+    aspect-ratio: 1 / 1; display: block;
   }
-  @keyframes badgeWiggle{ 0%,100%{ transform: rotate(-12deg) scale(1); } 50%{ transform: rotate(14deg) scale(1.1); } }
+  .avatar-frame .sticker{
+    position: absolute; bottom: -16px; left: -16px; background: #fff; border-radius: 50%;
+    width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: var(--shadow-soft); animation: wiggle 3.5s ease-in-out infinite;
+  }
+  @keyframes wiggle{ 0%,100%{ transform: rotate(-10deg); } 50%{ transform: rotate(12deg); } }
 
   .section-head{ text-align: center; margin-bottom: 48px; }
   .section-head h2{ font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--pink-ink); }
@@ -312,13 +308,11 @@
       <a href="#tong-ket" class="btn btn-ghost">Xem tổng kết</a>
     </div>
   </div>
-  <div class="avatar-frame reveal" style="border-radius: 32px !important; overflow: hidden !important;">
-    <img src="avt.jpg" alt="Vũ Khánh Linh" style="border-radius: 32px !important; width: 100% !important; height: 100% !important; object-fit: cover !important;">
-    <div class="avatar-glow-ring"></div>
-    <div class="orbit"><span>🌸</span></div>
-    <div class="orbit reverse"><span>✨</span></div>
-    <div class="avatar-core">KL</div>
-    <div class="avatar-badge">⛩️</div>
+  <div class="avatar-frame reveal">
+    <div class="avatar-inner">
+      <img src="avt.jpg" alt="Vũ Khánh Linh">
+    </div>
+    <div class="sticker">⛩️</div>
   </div>
 </section>
 
@@ -402,8 +396,8 @@
     <div class="work-card reveal">
       <span class="tag">Bài 5</span>
       <h3>🎀 Sử dụng AI tạo sinh để hỗ trợ sáng tạo nội dung</h3>
-      <p>⛩️ Mục tiêu: Bạn mong muốn phối hợp và tích hợp đa dạng các công cụ AI thế hệ mới như ChatGPT, DALL-E, Canva AI để tối ưu hóa toàn diện quy trình lên ý tưởng, sản xuất nội dung văn bản và thiết kế trực quan, áp dụng vào dự án bài tập xây dựng bài thuyết trình "Ứng dụng của AI trong việc học ngoại ngữ".
-⭐ Thành quả: Bạn đã kết hợp thành công sức mạnh công nghệ khi dùng ChatGPT lên khung dàn ý, dùng DALL-E tạo ảnh minh họa độc bản và tận dụng Canva AI định hình phong cách slide hiện đại, đồng thời thể hiện rõ dấu ấn cá nhân bằng việc chủ động hiệu đính, chuyển đổi thuật ngữ học thuật mượt mà, lồng ghép tư duy phản biện vào sản phẩm cuối cùng và lập bảng đối chiếu ưu - nhược điểm của từng công cụ để cải tiến quy trình sáng tạo.</p>
+      <p>⛩️ Mục tiêu: Bạn mong muốn phối hợp và tích hợp đa dạng các công cụ AI thế hệ mới như ChatGPT, DALL-E, Canva AI để tối ưu hóa toàn diện quy trình lên ý tưởng, sản xuất nội dung văn bản và thiết kế trực quan, áp dụng vào dự án bài tập xây dựng bài thuyết trình "Ứng dụng của AI trong việc học ngoại ngữ".</p>
+      <p>⭐ Thành quả: Bạn đã kết hợp thành công sức mạnh công nghệ khi dùng ChatGPT lên khung dàn ý, dùng DALL-E tạo ảnh minh họa độc bản và tận dụng Canva AI định hình phong cách slide hiện đại, đồng thời thể hiện rõ dấu ấn cá nhân bằng việc chủ động hiệu đính, chuyển đổi thuật ngữ học thuật mượt mà, lồng ghép tư duy phản biện vào sản phẩm cuối cùng và lập bảng đối chiếu ưu - nhược điểm của từng công cụ để cải tiến quy trình sáng tạo.</p>
       <div class="meta">
         <a href="https://docs.google.com/document/d/14hoQtAqe-2dYhyVBGZSp_hw9AxTbF2kP/edit?usp=drive_link&ouid=100698810264392713077&rtpof=true&sd=true" target="_blank" rel="noopener" class="btn btn-primary" style="padding:9px 18px; font-size:0.85rem;">GG Drive</a>
       </div>
