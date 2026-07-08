@@ -251,9 +251,19 @@
   .reflect-col p{ font-size: 0.97rem; line-height: 1.8; color: var(--pink-ink-soft); margin: 0; }
   .summary-divider{ border: none; border-top: 2px dashed rgba(217,113,143,0.25); margin: 0 0 34px; }
   .summary-stats{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px; margin-top: 10px; }
-  .stat .num{ font-family: 'Baloo 2', cursive; font-size: 2.2rem; color: var(--pink-deep); display: inline-block; }
+  .stat{ padding: 10px; border-radius: 18px; transition: transform 0.35s cubic-bezier(.3,1.4,.5,1); }
+  .stat .num{
+    font-family: 'Baloo 2', cursive; font-size: 2.2rem; color: var(--pink-deep); display: inline-block;
+    transition: text-shadow 0.35s ease, color 0.35s ease, transform 0.35s cubic-bezier(.3,1.4,.5,1);
+  }
   .stat.in-view .num{ animation: popNum 0.6s cubic-bezier(.3,1.6,.5,1); }
   @keyframes popNum{ 0%{ transform: scale(0.4); opacity: 0; } 60%{ transform: scale(1.15); opacity: 1; } 100%{ transform: scale(1); } }
+  .stat:hover{ transform: translateY(-4px); }
+  .stat:hover .num{
+    color: var(--pink-deep);
+    text-shadow: 0 0 10px rgba(217,113,143,0.55), 0 0 22px rgba(217,113,143,0.45), 0 0 36px rgba(243,182,204,0.5);
+    transform: scale(1.08);
+  }
   .stat .label{ font-size: 0.88rem; color: var(--pink-ink-soft); margin-top: 4px; }
 
   footer{ position: relative; z-index: 2; text-align: center; padding: 40px 6vw 60px; color: var(--pink-ink-soft); font-size: 0.9rem; }
@@ -302,7 +312,7 @@
   <div class="hero-text">
     <span class="eyebrow reveal">🌸 Portfolio cá nhân</span>
     <h1 class="reveal">Xin chào! Mình là<br><span>Vũ Khánh Linh</span></h1>
-    <p class="reveal">Sinh viên ngành <b>Ngôn ngữ và Văn hóa Nhật Bản</b> tại <b>Trường Đại học Ngoại ngữ - ĐHQGHN</b>. Đây là nơi mình lưu lại hành trình học tập, các bài tập và những trải nghiệm nho nhỏ đáng nhớ của mình khi tham gia học phần Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo.</p>
+    <p class="reveal">Sinh viên ngành <b>Ngôn ngữ và Văn hóa Nhật Bản</b> tại <b>Trường Đại học Ngoại ngữ - ĐHQGHN</b>. Ngoài giờ học, mình là một người thích thư giãn bằng những bộ phim hay, đam mê mua sắm và luôn duy trì thói quen đọc sách để tìm tòi, học hỏi những điều mới lạ xung quanh. Chiếc Portfolio nhỏ xinh này chính là nơi mình lưu giữ lại toàn bộ hành trình học tập, những bài tập thực hành cùng các trải nghiệm vô giá mà mình có được khi tham gia học phần Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo.</p>
     <div class="tag-chips reveal">
       <span class="tag-chip">MSV: 25042182</span>
       <span class="tag-chip">Ngành: Ngôn ngữ &amp; Văn hóa Nhật Bản</span>
