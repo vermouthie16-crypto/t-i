@@ -630,5 +630,132 @@ made by Vũ Khánh Linh — cảm ơn bạn đã ghé thăm! <span class="heart"
   }, { threshold: 0.4 });
   sections.forEach(s=>navIo.observe(s));
 </script>
+
+  <script>
+  // Sparkle field
+  const layer = document.getElementById('sparkle-layer');
+  const sparkleCount = 40;
+  for(let i=0;i<sparkleCount;i++){
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*100 + 'vh';
+    s.style.animationDelay = (Math.random()*4) + 's';
+    s.style.animationDuration = (2.4 + Math.random()*2.4) + 's';
+    const size = 3 + Math.random()*5;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    layer.appendChild(s);
+  }
+ 
+  // Cursor glow (bling bling follows the mouse)
+  const glow = document.getElementById('cursorGlow');
+  window.addEventListener('mousemove', (e) => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+    glow.style.opacity = 1;
+  });
+  window.addEventListener('mouseleave', () => { glow.style.opacity = 0; });
+ 
+  // Occasional click sparkle burst
+  document.addEventListener('click', (e) => {
+    for(let i=0;i<6;i++){
+      const burst = document.createElement('div');
+      burst.className = 'sparkle';
+      burst.style.left = e.clientX + (Math.random()*40-20) + 'px';
+      burst.style.top = e.clientY + (Math.random()*40-20) + 'px';
+      burst.style.animationDuration = '1s';
+      layer.appendChild(burst);
+      setTimeout(()=>burst.remove(), 1200);
+    }
+  });
+ 
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(el=>io.observe(el));
+ 
+  // Smooth scroll + active nav link highlighting
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+ 
+  const sections = document.querySelectorAll('section[id]');
+  const navIo = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(l=>{
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s=>navIo.observe(s));
+</script>
+
+  <script>
+// Tự động chèn CSS trực tiếp vào trang web bằng JavaScript để ép hoạt họa chạy
+const sparkleStyle = document.createElement('style');
+sparkleStyle.innerHTML = `
+    .super-sparkle {
+        position: fixed !important;
+        pointer-events: none !important;
+        transform: translate(-50%, -50%) !important;
+        color: #ffd700 !important;
+        text-shadow: 0 0 8px #ffd700, 0 0 15px #ff8c00 !important;
+        z-index: 999999 !important;
+        font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif !important;
+        line-height: 1 !important;
+        animation: flyFade 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+    }
+    @keyframes flyFade {
+        0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+        100% { transform: translate(calc(-50% + var(--mx)), calc(-50% + var(--my))) scale(1.3) rotate(120deg); opacity: 0; }
+    }
+`;
+document.head.appendChild(sparkleStyle);
+
+// Lắng nghe sự kiện di chuyển chuột
+document.addEventListener('mousemove', function(e) {
+    // Tạo hạt lấp lánh
+    const p = document.createElement('div');
+    p.className = 'super-sparkle';
+    
+    // Chọn ngẫu nhiên biểu tượng lấp lánh
+    const icons = ['✨','◦'];
+    p.innerText = icons[Math.floor(Math.random() * icons.length)];
+    
+    // Sử dụng clientX, clientY (Tọa độ cố định trên màn hình) thay vì pageX, pageY
+    p.style.left = e.clientX + 'px';
+    p.style.top = e.clientY + 'px';
+    
+    // Kích thước ngẫu nhiên
+    p.style.fontSize = (Math.random() * 12 + 12) + 'px';
+    
+    // Hướng bay ngẫu nhiên
+    p.style.setProperty('--mx', ((Math.random() - 0.5) * 50) + 'px');
+    p.style.setProperty('--my', ((Math.random() - 0.5) * 50) + 'px');
+    
+    document.body.appendChild(p);
+    
+    // Xóa hạt sau 0.7 giây
+    setTimeout(() => p.remove(), 500);
+});
+</script>
 </body>
 </html>
